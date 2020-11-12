@@ -1,0 +1,34 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:9091/eureka
+
+authentication:
+  hostname: http://localhost:9094
+
+spring:
+  security:
+    oauth2:
+      client:
+        client-id: timesheet
+        client-secret: "1234"
+        resource-ids: resources
+      resource:
+        user-info-uri: ${authentication.hostname}/auth/oauth/check_user
+
+security:
+  oauth2:
+    client:
+      client-id: ${spring.security.oauth2.client.client-id}
+      client-secret: ${spring.security.oauth2.client.client-secret}
+      resource-ids: ${spring.security.oauth2.client.resource-ids}
+    resource:
+      user-info-uri: ${spring.security.oauth2.resource.user-info-uri}
+
+logging:
+  level:
+    #    root: DEBUG
+    com.netflix.discovery: OFF

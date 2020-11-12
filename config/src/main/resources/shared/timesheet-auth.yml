@@ -1,0 +1,33 @@
+server:
+  port: 9092
+  servlet:
+    context-path: /auth
+
+eureka:
+  instance:
+    hostname: timesheet-auth
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/timesheet?currentSchema=auth
+    username: postgres
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        ddl-auto: none
+    show-sql: true
+
+flyway:
+  enabled: true
+  user: postgres
+  password: admin
+  schemas: timesheet
+  table: FLYWAY_SCHEMA_VERSION
+  baseline-on-migrate: true
+  baseline-version: 0

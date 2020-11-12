@@ -1,0 +1,20 @@
+eureka:
+  instance:
+    hostname: timesheet-gateway
+
+server:
+  port: 9094
+  allowedOrigins: "*"
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+zuul:
+  ignoredServices: "*"
+  routes:
+    timesheet-auth:
+      path: /auth/**
+      serviceId: timesheet-auth
+      stripPrefix: false
+      sensitiveHeaders:
