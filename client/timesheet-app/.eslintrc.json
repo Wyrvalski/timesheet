@@ -72,7 +72,7 @@
     "one-var": [2, "never"],
     "prefer-arrow-callback": 2,
     "no-console": [
-      "error",
+      "off",
       {
         "allow": ["tron"]
       }
