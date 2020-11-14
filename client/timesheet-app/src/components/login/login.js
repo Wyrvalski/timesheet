@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { login } from '../../actions/auth';
 import { connect, useDispatch } from 'react-redux';
+import ContainerLoginCadastro from '../layout/container_login';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import Input from '../helpers/Input';
+import Input from '../layout/input';
+import Button from '../layout/input_button';
 
 const Login = ({ isAuthenticated }) => {
   const dispatch = useDispatch();
@@ -27,38 +30,45 @@ const Login = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     return <Redirect to="/dashboard"></Redirect>;
   }
-
+  console.log(isAuthenticated);
   return (
-    <div>
-      <form className="form" onSubmit={(event) => onSubmit(event)}>
-        <h1 className="welcome-title">TimeSheet</h1>
-        <Input
-          typeInput="email"
-          labelInput="Email"
-          nameInput="email"
-          valueInput={email}
-          onChangeInput={(event) => onChange(event)}
-        />
-        <Input
-          typeInput="password"
-          labelInput="Senha"
-          nameInput="password"
-          valueInput={password}
-          onChangeInput={(event) => onChange(event)}
-        />
-        <div className="submit-form">
-          <button type="submit" className="button-submit">
-            Entrar
-          </button>
+    <ContainerLoginCadastro>
+      <h1>Login</h1>
+      <p>
+        <i /> Entrar na conta
+      </p>
+      <form action="/dashboard" onSubmit={(event) => onSubmit(event)}>
+        <div>
+          <Input
+            type="email"
+            name="email"
+            onChangeInput={(event) => onChange(event)}
+            valueInput={email}
+            placeholder="Email"
+          />
         </div>
+        <div>
+          <Input
+            onChangeInput={(event) => onChange(event)}
+            name="password"
+            value={password}
+            type="password"
+            placeholder="Senha"
+            minLength="4"
+          />
+        </div>
+        <Button value="Login" />
       </form>
-    </div>
+    </ContainerLoginCadastro>
   );
 };
 
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  state,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps)(Login);

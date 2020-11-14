@@ -1,7 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 
-export const loginUserService = (request) => {
+export function loginUserService(request) {
   const LOGIN_API_ENDPOINT = 'http://localhost:9094/auth/oauth/token';
   const client = axios.create({
     headers: {
@@ -15,11 +15,12 @@ export const loginUserService = (request) => {
     password: request.user.password,
     grant_type: 'password',
   });
-  return client
-    .post(LOGIN_API_ENDPOINT, body)
-    .then((response) => {
-      localStorage.setItem('token', response.data.access_token);
-      return response;
-    })
-    .catch((event) => console.log(event));
-};
+  return new Promise((resolve, reject) => {
+    try {
+      const result = client.post(LOGIN_API_ENDPOINT, body);
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}

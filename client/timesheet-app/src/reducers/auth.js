@@ -7,16 +7,17 @@ const initialState = {
   user: null,
 };
 
-const login = (state = initialState, { type, payload } = {}) => {
-  const response = payload;
-  console.log(type);
-  switch (type) {
+const login = (state = initialState, action = null) => {
+  const response = action;
+  switch (action.type) {
     case types.LOGGED_SUCCESS:
-      return { isAuthenticated: true, response };
+      localStorage.setItem('token', response.response.data.access_token);
+      return { ...state, isAuthenticated: true, response };
     case types.LOGGED_FAIL:
-      console.log(type);
-      console.log('oi');
-      return { isAuthenticated: false, response };
+      return { ...state, isAuthenticated: false, response };
+    case types.LOGOUT:
+      localStorage.removeItem('token');
+      return { ...state, token: null, isAuthenticated: false };
     default:
       return state;
   }

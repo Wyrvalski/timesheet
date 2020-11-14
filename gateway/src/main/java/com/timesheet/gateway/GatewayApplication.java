@@ -37,7 +37,7 @@ public class GatewayApplication {
 		config.setAllowCredentials(true);
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
-
+		config.addAllowedOrigin("*");
 		source.registerCorsConfiguration("/**", config);
 
 		final FilterRegistrationBean<CorsFilter> bean =
