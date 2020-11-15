@@ -18,3 +18,8 @@ zuul:
       serviceId: timesheet-auth
       stripPrefix: false
       sensitiveHeaders:
+    timesheet-projects:
+      path: /projects/**
+      serviceId: timesheet-projects
+      stripPrefix: false
+      sensitiveHeaders:

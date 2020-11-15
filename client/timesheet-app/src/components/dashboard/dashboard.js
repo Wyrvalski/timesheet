@@ -10,7 +10,7 @@ import Alert from '@material-ui/lab/Alert';
 import Fade from '@material-ui/core/Fade';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
-const Dashboard = ({ auth: { email }, user: { name, team } }) => {
+const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     hour: '',
@@ -54,7 +54,7 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
   const onChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-  console.log(hour);
+  console.log(projects.length);
   return (
     <>
       {alert !== false ? (
@@ -91,10 +91,10 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
               loading={loading}
             />
           </div>
-          {team !== null ? (
+          {projects.length > 0 ? (
             <Select
               name="project"
-              team={team}
+              projects={projects}
               onChangeInput={(event) => onChange(event)}
               loading={loading}
             />

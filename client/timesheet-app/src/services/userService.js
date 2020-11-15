@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function getUserInfo(request) {
-  const LOGIN_API_ENDPOINT = `http://localhost:9094/auth/user/${request.email}`;
+  const LOGIN_API_ENDPOINT = `http://localhost:9094/projects/user/${request.email}`;
   const client = axios.create({
     headers: {
       'Content-Type': 'application/json',

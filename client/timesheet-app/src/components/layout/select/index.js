@@ -1,16 +1,11 @@
 import React from 'react';
 import { Select } from './style';
 
-const InputSelect = ({ team, name, onChangeInput, loading }) => {
-  if (team === undefined) {
-    return <div> </div>;
-  }
-
+const InputSelect = ({ projects, name, onChangeInput, loading }) => {
   const onChange = (event) => {
     onChangeInput(event);
   };
 
-  team = team.split(';');
   return (
     <Select
       disabled={loading}
@@ -18,10 +13,10 @@ const InputSelect = ({ team, name, onChangeInput, loading }) => {
       onChange={(event) => onChange(event)}
     >
       <option>Escolha o projeto</option>
-      {team.map((item, index) => {
+      {projects.map((item, index) => {
         return (
-          <option name={name} key={index} value={item}>
-            {item}
+          <option name={name} key={index} value={item.name}>
+            {item.name}
           </option>
         );
       })}
