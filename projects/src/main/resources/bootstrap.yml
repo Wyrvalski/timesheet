@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: timesheet-projects
+  cloud:
+    config:
+      uri: http://localhost:9090
+      fail-fast: true
+      username: user
+      password: 1234
+  main:
+    allow-bean-definition-overriding: true
