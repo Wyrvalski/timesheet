@@ -1,5 +1,7 @@
 package com.timesheet.auth.config;
 
+import static com.timesheet.commons.domain.Authorities.ADMIN;
+import static com.timesheet.commons.domain.Authorities.USER;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import static org.springframework.http.HttpMethod.GET;
@@ -33,9 +35,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                         "/swagger-resources/**",
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
-        .antMatchers(POST, "/**").hasAuthority("USER")
-        .antMatchers(GET, "/user").hasAuthority("USER")
-        .anyRequest().hasAuthority("ADMIN")
+        .antMatchers(POST, "/**").hasAuthority(USER.name())
+        .antMatchers(GET, "/user/**").hasAuthority(USER.name())
+        .anyRequest().hasAuthority(ADMIN.name())
         .anyRequest()
         .authenticated()
         .and()

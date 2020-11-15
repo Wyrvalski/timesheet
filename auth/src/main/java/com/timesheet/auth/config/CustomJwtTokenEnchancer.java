@@ -21,6 +21,7 @@ public class CustomJwtTokenEnchancer extends JwtAccessTokenConverter {
     Set<String> roles = new HashSet<>();
 
     authentication.getAuthorities().forEach(grantedAuthority -> {
+      System.out.println(grantedAuthority.getAuthority());
       if (grantedAuthority.getAuthority().startsWith("ROLE_")) {
         roles.add(grantedAuthority.getAuthority());
       } else {
