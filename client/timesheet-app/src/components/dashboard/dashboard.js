@@ -1,39 +1,121 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../components/layout/input';
 import ContainerLoginCadastro from '../layout/container_login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { getUserInfo } from '../../actions/user';
+import PropTypes from 'prop-types';
+import Select from '../layout/select';
+import Button from '../layout/input_button';
+import Alert from '@material-ui/lab/Alert';
+import Fade from '@material-ui/core/Fade';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
-export const Dashboard = () => {
+const Dashboard = ({ auth: { email }, user: { name, team } }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     hour: '',
     project: '',
+    alert: false,
+    success: false,
+    loading: false,
   });
 
-  useEffect(() => dispatch(getUserInfo('dev1@dev1.com')), []);
+  const [teste, setTeste] = useState(false);
 
-  const { hour, project } = formData;
-  const onChange = (event) =>
+  const { hour, alert, project, success, loading } = formData;
+
+  useEffect(() => {
+    dispatch(getUserInfo(email));
+    console.log('aqui');
+  }, []);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (hour !== '') {
+      setFormData({ ...formData, alert: !alert, success: true, loading: true });
+    } else {
+      setFormData({
+        ...formData,
+        alert: !alert,
+        success: false,
+        loading: true,
+      });
+    }
+    setTeste({ teste: !teste });
+  };
+
+  useEffect(() => {
+    if (teste !== false) {
+      setTimeout(() => {
+        setFormData({ ...formData, alert: !alert, loading: false });
+      }, 3000);
+    }
+  }, [teste]);
+
+  const onChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-
+  };
+  console.log(hour);
   return (
-    <ContainerLoginCadastro>
-      <div>
-        <Input
-          type="text"
-          name="hour"
-          onChangeInput={(event) => onChange(event)}
-          valueInput={hour}
-          placeholder="Horas Trabalhas no projeto"
-        />
-      </div>
-      <div>
-        <select>
-          <option value="projetoa">{project}</option>
-          <option value="projetob">Projeto B</option>
-        </select>
-      </div>
-    </ContainerLoginCadastro>
+    <>
+      {alert !== false ? (
+        success !== false ? (
+          <Fade in={alert} timeout={1500}>
+            <Alert severity="success">
+              <AlertTitle>Horas cadatradas!</AlertTitle>
+              Foram cadastradas {hour} para o projeto {project}
+            </Alert>
+          </Fade>
+        ) : (
+          <Fade in={alert} timeout={1500}>
+            <Alert severity="error">
+              <AlertTitle>Houve um erro no cadastro das horas</AlertTitle>
+              Favor verificar se o campo hora foi preenchido corretamente
+            </Alert>
+          </Fade>
+        )
+      ) : (
+        ''
+      )}
+      <ContainerLoginCadastro>
+        <div>
+          <h1>Olá {name}</h1>
+        </div>
+        <form action="/dashboard" onSubmit={(event) => onSubmit(event)}>
+          <div>
+            <Input
+              type="time"
+              name="hour"
+              onChangeInput={(event) => onChange(event)}
+              valueInput={hour}
+              placeholder="Horas Trabalhas no projeto"
+              loading={loading}
+            />
+          </div>
+          {team !== null ? (
+            <Select
+              name="project"
+              team={team}
+              onChangeInput={(event) => onChange(event)}
+              loading={loading}
+            />
+          ) : (
+            <h2>Você ainda não está em nenhum projeto :(</h2>
+          )}
+          <Button value="Cadastrar Horas" loading={loading} />
+        </form>
+      </ContainerLoginCadastro>
+    </>
   );
 };
+
+Dashboard.propTypes = {
+  user: { name: PropTypes.object.isRequired },
+  auth: { email: PropTypes.object.isRequired },
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Dashboard);

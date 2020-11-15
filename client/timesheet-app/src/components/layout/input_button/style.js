@@ -5,7 +5,7 @@ export const Button = styled.input`
   background: #819ff7;
   border-radius: 10px;
   margin: 3px auto;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   height: 30px;
   :hover {
     cursor: pointer;
@@ -13,5 +13,5 @@ export const Button = styled.input`
 `;
 
 Button.defaultProps = {
-  width: '200px'
-}
+  width: '200px',
+};

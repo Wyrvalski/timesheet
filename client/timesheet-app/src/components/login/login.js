@@ -30,7 +30,6 @@ const Login = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     return <Redirect to="/dashboard"></Redirect>;
   }
-  console.log(isAuthenticated);
   return (
     <ContainerLoginCadastro>
       <h1>Login</h1>

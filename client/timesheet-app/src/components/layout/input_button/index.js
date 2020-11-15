@@ -1,12 +1,16 @@
-import React, { Fragment } from 'react'
-import {Button} from './style'
+import React, { Fragment } from 'react';
+import { Button } from './style';
 
-const InputButton = props => {
-    return (
-        <Fragment>
-            <Button type='submit' value={ props.value }></Button>
-        </Fragment>
-    )
-}
+const InputButton = (props) => {
+  return (
+    <Fragment>
+      <Button
+        disabled={props.loading}
+        type="submit"
+        value={props.value}
+      ></Button>
+    </Fragment>
+  );
+};
 
 export default InputButton;

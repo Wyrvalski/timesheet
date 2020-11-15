@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import { InputStyle } from './style';
 
 const Input = (props) => {
-  const onChange = (e) => {
-    props.onChangeInput(e);
+  const onChange = (event) => {
+    props.onChangeInput(event);
   };
 
   return (
     <div>
       <InputStyle
-        onChange={(e) => onChange(e)}
-        name={ props.name }
+        onChange={(event) => onChange(event)}
+        name={props.name}
         value={props.valueInput}
-        type={ props.type }
-        placeholder={ props.placeholder }
-        minLength={ props.minLength ? props.minLength : 'unset' }
+        type={props.type}
+        placeholder={props.placeholder}
+        minLength={props.minLength ? props.minLength : 'unset'}
+        disabled={props.loading}
       ></InputStyle>
     </div>
   );
 };
 
 Input.propTypes = {
-  onChangeInput: PropTypes.func.isRequired
+  onChangeInput: PropTypes.func.isRequired,
 };
 
 export default Input;
