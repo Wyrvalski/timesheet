@@ -1,22 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './components/layout/navbar';
 import Login from './components/login/login';
-import store from './store';
-
-const configStore = store();
+import Dashboard from './components/dashboard/dashboard';
 
 function App() {
   return (
-    <Provider store={configStore}>
-      <Router>
-        <Switch>
-          <>
-            <Route path="/login" component={Login}></Route>
-          </>
-        </Switch>
-      </Router>
-    </Provider>
+    <Router>
+      <NavBar />
+      <Switch>
+        <>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/dashboard" component={Dashboard}></Route>
+        </>
+      </Switch>
+    </Router>
   );
 }
 

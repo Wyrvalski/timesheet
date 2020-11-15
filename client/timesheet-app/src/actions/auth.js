@@ -6,3 +6,9 @@ export const login = (user) => {
     user,
   };
 };
+
+export const logout = () => {
+  return {
+    type: types.LOGOUT_REQUEST,
+  };
+};

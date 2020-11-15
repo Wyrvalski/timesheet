@@ -4,19 +4,25 @@ const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true,
-  user: null,
+  email: null,
 };
 
-const login = (state = initialState, { type, payload } = {}) => {
-  const response = payload;
-  console.log(type);
-  switch (type) {
+const login = (state = initialState, action = null) => {
+  const response = action.response;
+  switch (action.type) {
     case types.LOGGED_SUCCESS:
-      return { isAuthenticated: true, response };
+      localStorage.setItem('token', response.data.access_token);
+      return {
+        ...state,
+        isAuthenticated: true,
+        email: response.data.name,
+        response,
+      };
     case types.LOGGED_FAIL:
-      console.log(type);
-      console.log('oi');
-      return { isAuthenticated: false, response };
+      return { ...state, isAuthenticated: false, response };
+    case types.LOGOUT:
+      localStorage.removeItem('token');
+      return { ...state, token: null, isAuthenticated: false };
     default:
       return state;
   }

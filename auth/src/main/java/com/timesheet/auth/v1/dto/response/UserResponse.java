@@ -15,7 +15,6 @@ import java.util.Set;
 public class UserResponse {
 
     private Long id;
-    private String password;
     private String email;
     private String name;
     private String team;

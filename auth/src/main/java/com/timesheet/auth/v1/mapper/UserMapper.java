@@ -11,7 +11,6 @@ public class UserMapper {
     public static UserResponse mapToUserResponse(UserEntity customUserEntity) {
         return UserResponse.builder()
                 .id(customUserEntity.getId())
-                .password(customUserEntity.getPassword())
                 .email(customUserEntity.getEmail())
                 .name(customUserEntity.getName())
                 .team(customUserEntity.getTeam())
