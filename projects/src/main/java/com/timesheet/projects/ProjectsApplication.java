@@ -10,10 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableEurekaClient
 @EnableAsync
 @EnableFeignClients
-public class ProjectsApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ProjectsApplication.class, args);
-	}
-
+public class ProjectsApplication { public static void main(String[] args) {
+    SpringApplication.run(ProjectsApplication.class, args);
+  }
 }

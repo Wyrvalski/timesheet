@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class CustomUserFacade {
+  private final UserService userService;
 
-    private final UserService userService;
-
-    public UserResponse findByEmail(String email) {
-        return mapToUserResponse(userService.findByEmail(email));
-    }
+  public UserResponse findByEmail(String email) {
+    return mapToUserResponse(userService.findByEmail(email));
+  }
 }

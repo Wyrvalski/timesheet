@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: false,
   loading: true,
   email: null,
+  emailSend: true,
 };
 
 const login = (state = initialState, action = null) => {
@@ -16,10 +17,11 @@ const login = (state = initialState, action = null) => {
         ...state,
         isAuthenticated: true,
         email: response.data.name,
+        emaiSend: true,
         response,
       };
     case types.LOGGED_FAIL:
-      return { ...state, isAuthenticated: false, response };
+      return { ...state, isAuthenticated: false, emailSend: false, response };
     case types.LOGOUT:
       localStorage.removeItem('token');
       return { ...state, token: null, isAuthenticated: false };

@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity(name = "project_name")
@@ -17,11 +20,12 @@ import java.util.List;
 @Data
 @Builder
 public class ProjectEntity {
-    @Id
-    private Long project_id;
-    private String name;
+  @Id
+  @Column(name = "project_id")
+  private Long projectId;
+  private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "project" )
-    private List<UserProjectEntity> projects;
+  @JsonIgnore
+  @OneToMany(mappedBy = "project")
+  private List<UserProjectEntity> projects;
 }

@@ -68,7 +68,7 @@ const Profile = ({ user: { projects, name } }) => {
 };
 
 Profile.propTypes = {
-  user: { name: PropTypes.object.isRequired },
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

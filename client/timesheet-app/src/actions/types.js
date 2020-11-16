@@ -10,7 +10,5 @@ export const SAVE_HOUR_REQUEST = 'SAVE_HOUR_REQUEST';
 export const SAVE_HOUR_SUCCESS = 'SAVE_HOUR_SUCCESS';
 export const SAVE_HOUR_FAIL = 'SAVE_HOUR_FAIL';
 export const ALL_USERS_REQUEST = 'ALL_USERS_REQUEST';
-export const All_USERS_SUCCESS = 'All_USERS_SUCCESS';
-export const All_USERS_FAIL = 'All_USERS_FAIL';
-
-
+export const ALL_USERS_SUCCESS = 'ALL_USERS_SUCCESS';
+export const ALL_USERS_FAIL = 'ALL_USERS_FAIL';

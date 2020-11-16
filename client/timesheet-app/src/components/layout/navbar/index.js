@@ -1,12 +1,11 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { Nav, MenuOpen, MenuClose, Ul, NavBar, H1 } from './style';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { logout } from '../../../actions/auth';
+import PropTypes from 'prop-types';
 
-const Navbar = ({ auth: { isAuthenticated, email } }) => {
+const NavbarMenu = ({ auth: { isAuthenticated, email } }) => {
   const dispatch = useDispatch();
   const [formState, setState] = useState({
     menuAtivo: false,
@@ -14,8 +13,12 @@ const Navbar = ({ auth: { isAuthenticated, email } }) => {
 
   const { menuAtivo } = formState;
 
-  const ativarMenu = () => {
+  const activeMenu = () => {
     setState({ menuAtivo: !menuAtivo });
+  };
+
+  const closeMenu = () => {
+    setState({ menuAtivo: false });
   };
 
   const onClickLogout = () => {
@@ -25,16 +28,22 @@ const Navbar = ({ auth: { isAuthenticated, email } }) => {
     <Ul>
       <li>
         {email === 'admin@admin.com' ? (
-          <Link to="/total">Total de horas apontadas</Link>
+          <Link onClick={closeMenu} to="/total">
+            Total de horas apontadas
+          </Link>
         ) : (
-          <Link to="/profile">Minhas Horas</Link>
+          <Link onClick={closeMenu} to="/profile">
+            Minhas Horas
+          </Link>
         )}
       </li>
       <li>
-        <Link to="/login">Apontar Horas</Link>
+        <Link onClick={closeMenu} to="/login">
+          Apontar Horas
+        </Link>
       </li>
       <li>
-        <Link to="/login">
+        <Link onClick={closeMenu} to="/login">
           <span onClick={() => onClickLogout()}>Logout</span>
         </Link>
       </li>
@@ -49,7 +58,7 @@ const Navbar = ({ auth: { isAuthenticated, email } }) => {
   );
   return (
     <Nav>
-      <MenuOpen onClick={ativarMenu}>
+      <MenuOpen onClick={activeMenu}>
         <span></span>
         <span></span>
         <span></span>
@@ -59,7 +68,7 @@ const Navbar = ({ auth: { isAuthenticated, email } }) => {
       </H1>
       <div className={menuAtivo ? 'menu-ativo' : ''}>
         <NavBar>
-          <MenuClose onClick={ativarMenu}>
+          <MenuClose onClick={activeMenu}>
             <span></span>
             <span></span>
             <span></span>
@@ -71,8 +80,12 @@ const Navbar = ({ auth: { isAuthenticated, email } }) => {
   );
 };
 
+NavbarMenu.propTypes = {
+  auth: PropTypes.object,
+};
+
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(NavbarMenu);

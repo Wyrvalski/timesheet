@@ -23,8 +23,8 @@ export function* saveHourSaga(payload) {
 export function* getAllSaga(payload) {
   try {
     const response = yield call(getAll, payload);
-    yield put({ type: types.All_USERS_SUCCESS, response });
+    yield put({ type: types.ALL_USERS_SUCCESS, response });
   } catch (error) {
-    yield put({ type: types.All_USERS_FAIL });
+    yield put({ type: types.ALL_USERS_FAIL });
   }
 }
