@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../components/layout/input';
 import ContainerLoginCadastro from '../layout/container_login';
 import { useDispatch, connect } from 'react-redux';
-import { getUserInfo } from '../../actions/user';
+import { getUserInfo, saveHour } from '../../actions/user';
 import PropTypes from 'prop-types';
 import Select from '../layout/select';
 import Button from '../layout/input_button';
 import Alert from '@material-ui/lab/Alert';
 import Fade from '@material-ui/core/Fade';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import { Redirect } from 'react-router-dom';
 
-const Dashboard = ({ auth: { email }, user: { name, team } }) => {
+const Dashboard = ({
+  auth: { email, isAuthenticated },
+  user: { name, projects },
+}) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     hour: '',
@@ -20,18 +24,24 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
     loading: false,
   });
 
-  const [teste, setTeste] = useState(false);
+  const [mountAlert, setTmountAlert] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const { hour, alert, project, success, loading } = formData;
+  const { hour, alert, success, loading } = formData;
 
   useEffect(() => {
     dispatch(getUserInfo(email));
-    console.log('aqui');
   }, []);
+
   const onSubmit = (event) => {
     event.preventDefault();
-    if (hour !== '') {
+    if (hour !== '' && selectedProject !== null) {
       setFormData({ ...formData, alert: !alert, success: true, loading: true });
+      const data = {
+        hour,
+        selectedProject,
+      };
+      dispatch(saveHour(data));
     } else {
       setFormData({
         ...formData,
@@ -40,21 +50,30 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
         loading: true,
       });
     }
-    setTeste({ teste: !teste });
+    setTmountAlert({ mountAlert: !mountAlert });
   };
 
   useEffect(() => {
-    if (teste !== false) {
+    if (mountAlert !== false) {
       setTimeout(() => {
         setFormData({ ...formData, alert: !alert, loading: false });
+        dispatch(getUserInfo(email));
       }, 3000);
     }
-  }, [teste]);
+  }, [mountAlert]);
 
   const onChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    setSelectedProject({
+      ...selectedProject,
+      [event.target.name]: event.target.value,
+    });
   };
-  console.log(hour);
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login"></Redirect>;
+  }
+
   return (
     <>
       {alert !== false ? (
@@ -62,7 +81,7 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
           <Fade in={alert} timeout={1500}>
             <Alert severity="success">
               <AlertTitle>Horas cadatradas!</AlertTitle>
-              Foram cadastradas {hour} para o projeto {project}
+              Foram cadastradas {hour} para o projeto !
             </Alert>
           </Fade>
         ) : (
@@ -91,10 +110,10 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
               loading={loading}
             />
           </div>
-          {team !== null ? (
+          {projects.length > 0 ? (
             <Select
-              name="project"
-              team={team}
+              name="selectedProject"
+              projects={projects}
               onChangeInput={(event) => onChange(event)}
               loading={loading}
             />
@@ -109,8 +128,8 @@ const Dashboard = ({ auth: { email }, user: { name, team } }) => {
 };
 
 Dashboard.propTypes = {
-  user: { name: PropTypes.object.isRequired },
-  auth: { email: PropTypes.object.isRequired },
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

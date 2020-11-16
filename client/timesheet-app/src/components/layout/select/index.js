@@ -1,32 +1,37 @@
 import React from 'react';
 import { Select } from './style';
+import PropTypes from 'prop-types';
 
-const InputSelect = ({ team, name, onChangeInput, loading }) => {
-  if (team === undefined) {
-    return <div> </div>;
-  }
-
+const InputSelect = ({ projects, name, onChangeInput, loading }) => {
   const onChange = (event) => {
     onChangeInput(event);
   };
 
-  team = team.split(';');
   return (
     <Select
       disabled={loading}
       name={name}
       onChange={(event) => onChange(event)}
     >
-      <option>Escolha o projeto</option>
-      {team.map((item, index) => {
+      <option name="aqui" value="aqui">
+        Escolha o projeto
+      </option>
+      {projects.map((item, index) => {
         return (
-          <option name={name} key={index} value={item}>
-            {item}
+          <option name={name} key={index} value={item.id}>
+            {item.project.name}
           </option>
         );
       })}
     </Select>
   );
+};
+
+InputSelect.propTypes = {
+  projects: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired,
+  onChangeInput: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default InputSelect;

@@ -6,3 +6,16 @@ export const getUserInfo = (email) => {
     email,
   };
 };
+
+export const getAll = () => {
+  return {
+    type: types.ALL_USERS_REQUEST,
+  };
+};
+
+export const saveHour = (data) => {
+  return {
+    type: types.SAVE_HOUR_REQUEST,
+    data,
+  };
+};

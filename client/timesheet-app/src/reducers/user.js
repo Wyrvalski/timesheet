@@ -3,8 +3,9 @@ import * as types from '../actions/types';
 const initialState = {
   email: null,
   name: null,
-  team: null,
+  projects: [],
   loading: true,
+  allUsers: null,
 };
 
 const getUserInfo = (state = initialState, action = null) => {
@@ -16,7 +17,12 @@ const getUserInfo = (state = initialState, action = null) => {
         loading: true,
         email: response.data.email,
         name: response.data.name,
-        team: response.data.team,
+        projects: response.data.projects,
+      };
+    case types.ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        allUsers: response.data,
       };
     default:
       return state;

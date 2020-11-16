@@ -4,22 +4,14 @@ import com.timesheet.auth.domain.model.UserEntity;
 import com.timesheet.auth.domain.repository.CustomUserRepository;
 import com.timesheet.auth.v1.dto.response.UserResponse;
 import com.timesheet.auth.v1.facade.CustomUserFacade;
-import com.timesheet.auth.v1.mapper.UserMapper;
-import static com.timesheet.auth.v1.mapper.UserMapper.mapToUserResponse;
 import com.timesheet.auth.v1.service.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class userControllerTest {

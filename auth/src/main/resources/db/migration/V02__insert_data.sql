@@ -4,7 +4,7 @@ email,
 password
 )
 VALUES
-('admin',
+('Administrador',
 'admin@admin.com',
 '{bcrypt}$2y$12$BCeI1Qe4mF/3W/EqPCGCKuhbsHXjKlTlxJKdP08LgQu6gyDX4mt9W');
 
@@ -14,7 +14,7 @@ email,
 password,
 team)
 VALUES
-('admin',
+('Programador 1',
 'dev1@dev1.com',
 '{bcrypt}$2y$12$4D8AODNvaWQhhIY8seG6PuoQwEUtNymqabfQiSIar8awzGAnYoqNK',
 'Cliente A');
@@ -25,7 +25,7 @@ email,
 password,
 team)
 VALUES
-('admin',
+('Programador 2',
 'dev2@dev2.com',
 '{bcrypt}$2y$12$6/lNPsup/VjJTwXIBRCzLuImAJJy2Vnun/d9bBLOKRnX2YWVjWw9W',
 'Cliente A;Cliente B');
