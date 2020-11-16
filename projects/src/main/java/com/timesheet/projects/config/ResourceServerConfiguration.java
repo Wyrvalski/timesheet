@@ -2,13 +2,12 @@ package com.timesheet.projects.config;
 
 import static com.timesheet.commons.domain.Authorities.ADMIN;
 import static com.timesheet.commons.domain.Authorities.USER;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import static org.springframework.http.HttpMethod.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -39,9 +38,12 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter im
                         "/swagger-resources/**",
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
-                .antMatchers(POST, "/user/**").hasAuthority(USER.name())
-                .antMatchers(GET, "/user/**").hasAuthority(USER.name())
-                .anyRequest().hasAuthority(USER.name());
+                .antMatchers(GET, "/user/all/**").hasAuthority(ADMIN.name())
+                .antMatchers(GET, "/user/*").hasAuthority(USER.name())
+                .antMatchers(POST, "/user/*").hasAuthority(USER.name())
+                .antMatchers(PUT, "/user/*").hasAuthority(USER.name())
+                .antMatchers(PUT, "/userproject/*").hasAuthority(USER.name())
+                .anyRequest().hasAuthority(ADMIN.name());
     }
 
     @Override

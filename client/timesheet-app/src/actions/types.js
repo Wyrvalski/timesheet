@@ -6,3 +6,11 @@ export const LOGOUT = 'LOGOUT';
 export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
 export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
 export const USER_INFO_FAIL = 'USER_INFO_FAIL';
+export const SAVE_HOUR_REQUEST = 'SAVE_HOUR_REQUEST';
+export const SAVE_HOUR_SUCCESS = 'SAVE_HOUR_SUCCESS';
+export const SAVE_HOUR_FAIL = 'SAVE_HOUR_FAIL';
+export const ALL_USERS_REQUEST = 'ALL_USERS_REQUEST';
+export const All_USERS_SUCCESS = 'All_USERS_SUCCESS';
+export const All_USERS_FAIL = 'All_USERS_FAIL';
+
+

@@ -1,16 +1,12 @@
-package com.timesheet.projects.domain;
+package com.timesheet.projects.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -24,7 +20,7 @@ public class UserInfoEntity {
     private String name;
     private String email;
 
-    @ManyToMany(mappedBy = "usersProject" )
-    private List<ProjectEntity> projects;
+    @OneToMany(mappedBy = "user" )
+    private List<UserProjectEntity> projects;
 
 }

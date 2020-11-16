@@ -1,4 +1,4 @@
-package com.timesheet.projects.domain;
+package com.timesheet.projects.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -18,15 +18,10 @@ import java.util.List;
 @Builder
 public class ProjectEntity {
     @Id
-    @JsonIgnore
     private Long project_id;
     private String name;
 
-    @JsonBackReference("projects")
-    @ManyToMany
-    @JoinTable(
-            name = "projects_user_hours",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<UserInfoEntity> usersProject;
+    @JsonIgnore
+    @OneToMany(mappedBy = "project" )
+    private List<UserProjectEntity> projects;
 }
