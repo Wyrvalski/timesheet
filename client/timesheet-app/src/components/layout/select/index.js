@@ -12,11 +12,13 @@ const InputSelect = ({ projects, name, onChangeInput, loading }) => {
       name={name}
       onChange={(event) => onChange(event)}
     >
-      <option>Escolha o projeto</option>
+      <option name="aqui" value="aqui">
+        Escolha o projeto
+      </option>
       {projects.map((item, index) => {
         return (
-          <option name={name} key={index} value={item.name}>
-            {item.name}
+          <option name={name} key={index} value={item.id}>
+            {item.project.name}
           </option>
         );
       })}

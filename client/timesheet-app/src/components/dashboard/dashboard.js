@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../components/layout/input';
 import ContainerLoginCadastro from '../layout/container_login';
 import { useDispatch, connect } from 'react-redux';
-import { getUserInfo } from '../../actions/user';
+import { getUserInfo, saveHour } from '../../actions/user';
 import PropTypes from 'prop-types';
 import Select from '../layout/select';
 import Button from '../layout/input_button';
@@ -20,18 +20,25 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
     loading: false,
   });
 
-  const [teste, setTeste] = useState(false);
+  const [mountAlert, setTmountAlert] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const { hour, alert, project, success, loading } = formData;
+  const { hour, alert, success, loading } = formData;
 
   useEffect(() => {
     dispatch(getUserInfo(email));
-    console.log('aqui');
   }, []);
   const onSubmit = (event) => {
     event.preventDefault();
-    if (hour !== '') {
+    console.log(selectedProject);
+    if (hour !== '' && selectedProject !== null) {
       setFormData({ ...formData, alert: !alert, success: true, loading: true });
+      const data = {
+        hour,
+        selectedProject,
+      };
+      console.log(data);
+      dispatch(saveHour(data));
     } else {
       setFormData({
         ...formData,
@@ -40,21 +47,25 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
         loading: true,
       });
     }
-    setTeste({ teste: !teste });
+    setTmountAlert({ mountAlert: !mountAlert });
   };
 
   useEffect(() => {
-    if (teste !== false) {
+    if (mountAlert !== false) {
       setTimeout(() => {
         setFormData({ ...formData, alert: !alert, loading: false });
+        dispatch(getUserInfo(email));
       }, 3000);
     }
-  }, [teste]);
+  }, [mountAlert]);
 
   const onChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    setSelectedProject({
+      ...selectedProject,
+      [event.target.name]: event.target.value,
+    });
   };
-  console.log(projects.length);
   return (
     <>
       {alert !== false ? (
@@ -62,7 +73,7 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
           <Fade in={alert} timeout={1500}>
             <Alert severity="success">
               <AlertTitle>Horas cadatradas!</AlertTitle>
-              Foram cadastradas {hour} para o projeto {project}
+              Foram cadastradas {hour} para o projeto !
             </Alert>
           </Fade>
         ) : (
@@ -93,7 +104,7 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
           </div>
           {projects.length > 0 ? (
             <Select
-              name="project"
+              name="selectedProject"
               projects={projects}
               onChangeInput={(event) => onChange(event)}
               loading={loading}

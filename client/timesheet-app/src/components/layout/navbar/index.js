@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { logout } from '../../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated } }) => {
+const Navbar = ({ auth: { isAuthenticated, email } }) => {
   const dispatch = useDispatch();
   const [formState, setState] = useState({
     menuAtivo: false,
@@ -24,15 +24,14 @@ const Navbar = ({ auth: { isAuthenticated } }) => {
   const authLinks = (
     <Ul>
       <li>
-        <Link to="/profiles">Minhas Horas</Link>
+        {email === 'admin@admin.com' ? (
+          <Link to="/total">Total de horas apontadas</Link>
+        ) : (
+          <Link to="/profile">Minhas Horas</Link>
+        )}
       </li>
       <li>
         <Link to="/login">Apontar Horas</Link>
-      </li>
-      <li>
-        <Link to="/dashboard">
-          <span>Painel</span>
-        </Link>
       </li>
       <li>
         <Link to="/login">
