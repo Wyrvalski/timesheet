@@ -19,7 +19,7 @@ VALUES
 (
 2,
 'dev1@dev1.com',
-'Prgramador 1'
+'Programador 1'
 );
 
 INSERT INTO projects.users(
@@ -31,7 +31,7 @@ VALUES
 (
 3,
 'dev2@dev2.com',
-'Prgramador 2'
+'Programador 2'
 );
 
 INSERT INTO projects.project_name(

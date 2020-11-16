@@ -9,9 +9,9 @@ export const getUserInfo = (email) => {
 
 export const getAll = () => {
   return {
-    type: types.ALL_USERS_REQUEST
-  }
-}
+    type: types.ALL_USERS_REQUEST,
+  };
+};
 
 export const saveHour = (data) => {
   return {

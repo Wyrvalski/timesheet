@@ -11,6 +11,7 @@ import ContainerLoginCadastro from '../layout/container_login';
 import { connect, useDispatch } from 'react-redux';
 import { getAll } from '../../actions/user';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,12 +37,24 @@ const useStyles = makeStyles({
     maxWidth: 1200,
   },
 });
-const AllProfiles = ({ user: { allUsers } }) => {
+const AllProfiles = ({
+  user: { allUsers, email },
+  auth: { isAuthenticated },
+}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAll());
   }, []);
+
   const classes = useStyles();
+
+  if (isAuthenticated) {
+    if (email !== 'admin@admin.com') {
+      return <Redirect to="/dashboard"></Redirect>;
+    }
+  } else {
+    return <Redirect to="/login"></Redirect>;
+  }
   return (
     <ContainerLoginCadastro>
       <TableContainer className={classes.table} component={Paper}>
@@ -77,11 +90,13 @@ const AllProfiles = ({ user: { allUsers } }) => {
 };
 
 AllProfiles.propTypes = {
-  user: { allUsers: PropTypes.object.isRequired },
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(AllProfiles);

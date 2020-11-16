@@ -19,8 +19,7 @@ const getUserInfo = (state = initialState, action = null) => {
         name: response.data.name,
         projects: response.data.projects,
       };
-    case types.All_USERS_SUCCESS:
-      console.log(response.data[2]);
+    case types.ALL_USERS_SUCCESS:
       return {
         ...state,
         allUsers: response.data,

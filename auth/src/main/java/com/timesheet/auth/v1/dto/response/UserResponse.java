@@ -13,10 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
-
-    private Long id;
-    private String email;
-    private String name;
-    private String team;
-    private Set<CustomAuthority> authorities;
+  private Long id;
+  private String email;
+  private String name;
+  private String team;
+  private Set<CustomAuthority> authorities;
 }

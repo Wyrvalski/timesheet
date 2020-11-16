@@ -9,8 +9,12 @@ import Button from '../layout/input_button';
 import Alert from '@material-ui/lab/Alert';
 import Fade from '@material-ui/core/Fade';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import { Redirect } from 'react-router-dom';
 
-const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
+const Dashboard = ({
+  auth: { email, isAuthenticated },
+  user: { name, projects },
+}) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     hour: '',
@@ -28,16 +32,15 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
   useEffect(() => {
     dispatch(getUserInfo(email));
   }, []);
+
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(selectedProject);
     if (hour !== '' && selectedProject !== null) {
       setFormData({ ...formData, alert: !alert, success: true, loading: true });
       const data = {
         hour,
         selectedProject,
       };
-      console.log(data);
       dispatch(saveHour(data));
     } else {
       setFormData({
@@ -66,6 +69,11 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
       [event.target.name]: event.target.value,
     });
   };
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login"></Redirect>;
+  }
+
   return (
     <>
       {alert !== false ? (
@@ -120,8 +128,8 @@ const Dashboard = ({ auth: { email }, user: { name, projects } }) => {
 };
 
 Dashboard.propTypes = {
-  user: { name: PropTypes.object.isRequired },
-  auth: { email: PropTypes.object.isRequired },
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

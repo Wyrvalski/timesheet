@@ -1,30 +1,25 @@
 package com.timesheet.projects.v1.controller;
 
-import com.timesheet.projects.domain.model.UserInfoEntity;
-import com.timesheet.projects.domain.model.UserProjectEntity;
 import com.timesheet.projects.v1.service.UserProjectService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/userproject")
 public class UserProjectController {
 
-    private final UserProjectService userProjectService;
+  private final UserProjectService userProjectService;
 
-    @PutMapping(value = "/{id}")
-    @ResponseBody
-    public void findByEmail(@PathVariable int id, @RequestParam("hour") String hour) {
-        userProjectService.updateHour(hour, id);
-    }
+  @PutMapping(value = "/{id}")
+  @ResponseBody
+  public void updateHour(@PathVariable int id, @RequestParam("hour") String hour) {
+    userProjectService.updateHour(hour, id);
+  }
 
 }

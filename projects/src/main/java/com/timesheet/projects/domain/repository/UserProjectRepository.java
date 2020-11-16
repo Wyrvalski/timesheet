@@ -12,10 +12,10 @@ import java.util.Date;
 
 public interface UserProjectRepository extends JpaRepository<UserProjectEntity, Integer> {
 
-    @Modifying
-    @Query(value = "UPDATE projects_user_hours SET hour = :hour WHERE id = :id",nativeQuery = true)
-    void updateHour(@Param("hour") String hour, @Param("id") int id);
+  @Modifying
+  @Query(value = "UPDATE projects_user_hours SET hour = :hour WHERE id = :id",nativeQuery = true)
+  void updateHour(@Param("hour") String hour, @Param("id") int id);
 
-    @Query(value = "SELECT * FROM projects_user_hours WHERE id = :id", nativeQuery = true)
-    UserProjectEntity findByIdHour(@Param("id") int id);
+  @Query(value = "SELECT * FROM projects_user_hours WHERE id = :id", nativeQuery = true)
+  UserProjectEntity findByIdHour(@Param("id") int id);
 }

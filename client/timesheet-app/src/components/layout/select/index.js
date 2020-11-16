@@ -1,5 +1,6 @@
 import React from 'react';
 import { Select } from './style';
+import PropTypes from 'prop-types';
 
 const InputSelect = ({ projects, name, onChangeInput, loading }) => {
   const onChange = (event) => {
@@ -24,6 +25,13 @@ const InputSelect = ({ projects, name, onChangeInput, loading }) => {
       })}
     </Select>
   );
+};
+
+InputSelect.propTypes = {
+  projects: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired,
+  onChangeInput: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default InputSelect;
